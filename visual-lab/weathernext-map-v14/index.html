@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#041b2b">
+<title>WeatherNext | Phú Quốc · Map Visual V14 LAB</title>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css">
+<style>:root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#ecfbff;background:#042033;color-scheme:dark;--aqua:#6ad8e8;--glass:rgba(3,25,43,.86);--line:rgba(207,239,243,.19)}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}button,input{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible,input:focus-visible{outline:2px solid #fff0aa;outline-offset:3px}.weather-app{height:100vh;height:100dvh;width:100%;position:relative;overflow:hidden;background:#082c3d;isolation:isolate}.map-root{position:absolute;inset:0;z-index:0;background:radial-gradient(circle at 40% 55%,#11526a,#082d49 75%)}.map-empty{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;padding:50px 26px 190px;text-align:center;background:radial-gradient(circle at 45% 35%,#124960,#082b41 60%);font-size:13px;color:#c3e5ef}.map-empty[hidden]{display:none}.map-empty-icon{font-size:46px;color:#5cbac6}.map-empty strong{font-size:18px;color:#f1f9fb}.map-empty span{max-width:370px;line-height:1.5}.field-layer,.particle-layer,.station-layer{position:absolute;inset:0;z-index:2;pointer-events:none}.field-layer{z-index:2}.particle-layer{z-index:3}.station-layer{z-index:4}.shade{position:absolute;inset:0;z-index:5;pointer-events:none;background:linear-gradient(180deg,rgba(1,15,29,.45),transparent 21%,transparent 65%,rgba(0,17,34,.36))}.topbar{z-index:15;position:absolute;top:0;left:0;right:0;padding:13px 24px;min-height:66px;display:flex;align-items:center;gap:14px;background:linear-gradient(180deg,rgba(2,19,35,.92),rgba(2,19,35,.2));pointer-events:none}.topbar>*{pointer-events:auto}.brand{display:flex;align-items:center;gap:10px}.brand-symbol{font-family:Georgia,serif;display:grid;place-items:center;flex-shrink:0;width:41px;height:41px;border-radius:50%;font-size:32px;font-weight:bold;line-height:1;color:white;background:radial-gradient(circle at 29% 21%,#b0f9ea,#35bddb 38%,#0e779d 70%,#16496d);box-shadow:0 0 25px #41d2f96b}.brand-name{font-size:21px;font-weight:850;letter-spacing:-.8px;white-space:nowrap}.brand-name span{color:#65daef}.brand-name small{display:block;font-size:9px;letter-spacing:.14em;font-weight:710;color:#bbdbe7;margin-top:1px}.top-center{margin:auto;font-size:11px;color:#b0d3dc;letter-spacing:.16em;font-weight:780}.divider-dot{color:#45a8bf}.circle-control,.tool-btn{border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(11px);color:#eafaff}.circle-control{width:43px;height:43px;border-radius:13px;font-size:24px}.archive{position:absolute;z-index:12;top:78px;left:24px;display:flex;gap:8px;align-items:center;padding:9px 12px;background:rgba(1,23,40,.78);border:1px solid rgba(255,208,135,.21);border-radius:10px;color:#ffdda8;font-size:11px;backdrop-filter:blur(11px);max-width:calc(100vw - 48px)}.archive-light{flex:0 0 7px;width:7px;height:7px;border-radius:50%;background:#efb967;box-shadow:0 0 10px #ffd074}.archive-explain{color:#d9e3e9}.layer-information{z-index:12;position:absolute;left:24px;top:134px;max-width:320px;padding:13px 17px;border-radius:16px;background:rgba(1,30,49,.76);border:1px solid var(--line);backdrop-filter:blur(10px)}.eyebrow{font-size:10px;color:#84d9e6;letter-spacing:.13em;font-weight:850}.layer-information h1{font-size:23px;margin:4px 0;letter-spacing:-.4px}.layer-information p{font-size:12px;margin:0;color:#d3e8f1}.layer-menu{z-index:13;position:absolute;right:22px;top:126px;display:flex;flex-direction:column;gap:7px;width:146px}.layer-btn{border:1px solid rgba(207,239,243,.20);min-height:48px;border-radius:13px;background:rgba(1,25,42,.84);display:flex;gap:12px;align-items:center;padding:8px 12px;color:#e8f9fc;font-size:12px;font-weight:750;backdrop-filter:blur(13px);text-align:left}.layer-btn .layer-ico{width:21px;font-size:21px;text-align:center;color:#a4e5ed}.layer-btn.selected{color:#00526d;background:linear-gradient(115deg,#efffff,#b9eced);box-shadow:0 4px 26px #50d6e645;border-color:#c6feff}.layer-btn.selected .layer-ico{color:#087d9a}.map-tools{position:absolute;right:22px;bottom:257px;z-index:13;display:flex;flex-direction:column;gap:6px}.tool-btn{width:40px;height:40px;border-radius:12px;font-size:21px}.tool-btn.on{border-color:#8ddce5;color:#98f4ff;background:rgba(8,83,106,.85)}.point-popover{z-index:20;position:absolute;top:265px;left:24px;width:294px;border-radius:18px;padding:19px 18px 15px;background:rgba(3,30,50,.94);border:1px solid rgba(193,236,242,.25);box-shadow:0 12px 45px #00182b99;backdrop-filter:blur(19px)}.point-popover[hidden]{display:none}.point-popover h2{font-size:19px;margin:8px 0 5px;letter-spacing:-.2px}.point-popover .close{position:absolute;top:9px;right:10px;border:0;background:transparent;color:#c4e5eb;font-size:24px}.point-value{font-size:31px;font-weight:850;letter-spacing:-.5px;margin:7px 0 2px}.point-popover p{font-size:12px;color:#bdd8e3;margin:0}.point-note{font-size:11px;color:#b0d6dd;border-top:1px solid var(--line);padding-top:10px;margin-top:12px;line-height:1.5}.metadata{z-index:9;position:absolute;right:22px;bottom:221px;font-size:10px;color:#d0e4e7;padding:7px 10px;background:#05253baa;border-radius:9px;backdrop-filter:blur(7px)}.metadata .dot{display:inline-block;width:6px;height:6px;margin-right:5px;background:#f0bb6d;border-radius:50%}.metadata.ready .dot{background:#71f3c6}.metadata.fail .dot{background:#ee9e76}.bottom-stack{z-index:12;position:absolute;left:22px;right:22px;bottom:18px;pointer-events:none;display:flex;flex-direction:column;gap:8px}.bottom-stack>*{pointer-events:auto}.legend{width:355px;max-width:100%;border-radius:13px;background:rgba(2,27,44,.90);padding:10px 13px 9px;border:1px solid var(--line);backdrop-filter:blur(12px)}.legend-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px}.legend-head b{font-size:12px}.legend-head small{color:#b4cfdb;font-size:10px}.gradient{height:9px;border-radius:6px;background:linear-gradient(90deg,#004a72,#11b8ed,#31eeb0,#f7df5a,#f37937,#ae3579)}.legend-marks{display:flex;justify-content:space-between;color:#c0dae1;font-size:10px;margin-top:5px}.timeline{width:100%;min-height:123px;border-radius:17px;background:rgba(1,24,42,.92);backdrop-filter:blur(18px);padding:14px 18px 12px;border:1px solid rgba(184,234,241,.25);box-shadow:0 13px 40px #001a2a6b}.timeline-heading{display:flex;align-items:center;justify-content:space-between;gap:10px}.timeline-heading strong{font-size:16px;letter-spacing:-.1px}.timeline-label{font-size:10px;color:#7cdae9;letter-spacing:.14em;font-weight:800;margin-bottom:4px}.time-frame{font-size:11px;color:#c5deeb}.timeline-controls{display:flex;align-items:center;gap:16px;margin-top:9px}.play{width:40px;height:40px;flex:0 0 40px;border:0;border-radius:50%;background:#edfaff;color:#077a99;font-size:19px;display:grid;place-items:center}.slider{min-width:0;flex:1}#scrub{width:100%;appearance:none;background:transparent;height:19px;cursor:pointer;margin:0}#scrub::-webkit-slider-runnable-track{height:5px;border-radius:10px;background:#55c9e6}#scrub::-webkit-slider-thumb{appearance:none;width:17px;height:17px;border:3px solid #66daed;border-radius:50%;background:white;margin-top:-6px;box-shadow:0 0 0 3px #48cfee35}#scrub::-moz-range-track{height:5px;background:#55c9e6;border-radius:10px}#scrub::-moz-range-thumb{height:14px;width:14px;border:3px solid #66daed;background:white;border-radius:50%}.times{display:flex;justify-content:space-between;color:#a3c4d0;font-size:10px;margin:2px 4px 0}.timeline-foot{display:flex;justify-content:space-between;font-size:10px;color:#acc8d1;margin:3px 0 0 55px}.attribution{position:absolute;bottom:223px;left:22px;z-index:8;color:#b8d3d7;font-size:9px;text-shadow:0 1px 4px #092137;pointer-events:none}.station-pin{position:absolute;pointer-events:auto;transform:translate(-50%,-50%);padding:0;border:2px solid #063a49;background:#84f9dd;border-radius:50%;width:12px;height:12px;box-shadow:0 0 0 3px #86ffe83b,0 0 12px #22d4c0b8}.station-pin:after{content:attr(data-label);position:absolute;left:15px;top:-3px;white-space:nowrap;font-size:11px;color:white;font-weight:750;text-shadow:0 1px 5px #012b31,1px 1px 2px #002029;pointer-events:none}.station-pin.stale{background:#f2b471;box-shadow:0 0 0 3px #f5b46430}
+@media(max-width:700px){.topbar{padding:7px 12px;min-height:57px}.top-center{display:none}.brand-symbol{width:35px;height:35px;font-size:27px}.brand-name{font-size:17px}.brand-name small{font-size:7px;letter-spacing:.08em}.circle-control{width:36px;height:36px;font-size:22px}.archive{top:60px;left:10px;right:10px;font-size:9px;padding:6px 8px;max-width:none;gap:5px;justify-content:flex-start}.archive-explain{display:none}.layer-information{top:107px;left:10px;max-width:166px;padding:9px 11px}.layer-information .eyebrow{font-size:8px}.layer-information h1{font-size:15px;margin:3px 0}.layer-information p{font-size:9px;line-height:1.3}.layer-menu{right:10px;top:104px;width:90px;gap:6px}.layer-btn{height:40px;min-height:40px;padding:5px 6px;gap:5px;font-size:10px;border-radius:12px}.layer-btn .layer-ico{width:17px;font-size:16px}.map-tools{right:10px;bottom:237px;gap:5px}.tool-btn{width:34px;height:34px;border-radius:10px;font-size:18px}.bottom-stack{left:10px;right:10px;bottom:9px;gap:6px}.legend{width:100%;padding:8px 11px 7px}.legend-head{margin-bottom:4px}.legend-head b{font-size:10px}.legend-head small{font-size:9px}.gradient{height:7px}.legend-marks{font-size:9px;margin-top:3px}.timeline{min-height:122px;padding:11px 12px 9px;border-radius:15px}.timeline-heading strong{font-size:14px}.timeline-label{font-size:9px}.time-frame{font-size:9px}.timeline-controls{margin-top:7px;gap:10px}.play{height:37px;width:37px;flex-basis:37px}.timeline-foot{margin-left:47px;font-size:9px;max-width:calc(100vw - 73px)}.metadata{bottom:248px;left:10px;right:auto;max-width:206px;font-size:9px;line-height:1.3}.attribution{bottom:233px;left:10px;right:auto;max-width:206px;font-size:7px;line-height:1.3}.point-popover{left:10px;top:auto;bottom:282px;width:calc(100% - 75px);max-width:270px;padding:12px 14px}.point-popover h2{font-size:16px}.point-value{font-size:25px}.station-pin:after{font-size:9px}.map-empty{padding-bottom:230px}}
+@media(max-width:370px){.layer-menu{width:79px}.layer-btn{font-size:9px}.layer-information{max-width:151px}.timeline-foot{font-size:8px}.archive{font-size:8px}.metadata{bottom:242px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+
+/* V10 visual reset: weather map is the hero, especially on iPhone. */
+@media (max-width:700px){
+ .topbar{background:linear-gradient(180deg,rgba(2,18,31,.93) 15%,rgba(2,18,31,.35));}
+ .archive{top:61px;right:auto;left:10px;max-width:calc(100% - 20px);padding:6px 9px;border-radius:9px;background:rgba(1,24,38,.77);font-size:9px}
+ .layer-information{top:100px;left:10px;width:auto;max-width:min(54vw,203px);padding:8px 11px;border-radius:12px;background:rgba(2,31,46,.74)}
+ .layer-information h1{font-size:17px}
+ .layer-information p{font-size:9px}
+ .layer-menu{left:9px;right:9px;top:auto;bottom:205px;width:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;z-index:13;background:rgba(0,28,44,.69);border:1px solid rgba(197,239,243,.20);padding:5px;border-radius:17px;backdrop-filter:blur(12px)}
+ .layer-btn{padding:6px 2px;height:45px;min-height:45px;border-radius:12px;gap:2px;display:flex;flex-direction:column;justify-content:center;text-align:center;font-size:9px;white-space:nowrap}
+ .layer-btn .layer-ico{font-size:15px;width:auto;line-height:1}
+ .map-tools{right:10px;bottom:277px;gap:5px}
+ .bottom-stack{bottom:7px;left:9px;right:9px;gap:6px}
+ .legend{padding:7px 11px 6px}
+ .timeline{min-height:119px;padding:11px 12px 8px}
+ .metadata{bottom:277px;left:10px;font-size:9px;max-width:175px}
+ .attribution{bottom:260px;left:10px;font-size:8px}
+ .point-popover{top:auto;bottom:270px;left:10px;max-width:calc(100% - 68px)}
+ .map-empty{padding-bottom:190px}
+}
+@media(max-width:370px){
+ .layer-menu{width:auto}
+ .layer-btn{font-size:8px}
+ .metadata{bottom:270px}
+}
+@media(max-height:690px) and (max-width:700px){
+ .layer-menu{bottom:182px}.map-tools{bottom:243px}.metadata{bottom:242px}.attribution{bottom:222px}
+ .timeline{min-height:108px;padding:7px 10px}.legend{padding:5px 9px}
+}
+
+/* V11 · Map-first. No photo mockups, AI-only assets or invented meteorological detail. */
+@media(min-width:701px){
+ .timeline{min-height:100px;padding:12px 16px 10px}
+ .bottom-stack{bottom:14px;gap:6px}
+ .legend{padding:8px 11px 7px}
+ .layer-information{top:132px}
+ .layer-menu{top:123px}
+}
+@media(max-width:700px){
+ .bottom-stack{bottom:max(7px,env(safe-area-inset-bottom));}
+ .layer-menu{bottom:calc(201px + env(safe-area-inset-bottom));}
+ .map-tools{bottom:calc(274px + env(safe-area-inset-bottom));}
+ .metadata{bottom:calc(271px + env(safe-area-inset-bottom));}
+ .attribution{bottom:calc(252px + env(safe-area-inset-bottom));max-width:245px;line-height:1.1;font-size:7px}
+ .timeline{min-height:110px;padding:9px 12px 7px}
+ .timeline-heading strong{font-size:13px}
+ .timeline-controls{margin-top:6px}
+ .layer-btn{height:44px;min-height:44px}
+}
+@media(max-height:690px) and (max-width:700px){
+ .layer-menu{bottom:calc(175px + env(safe-area-inset-bottom))}
+ .map-tools{bottom:calc(235px + env(safe-area-inset-bottom))}
+ .metadata{bottom:calc(234px + env(safe-area-inset-bottom))}
+ .attribution{bottom:calc(213px + env(safe-area-inset-bottom))}
+}
+
+/* V12: reduce interface weight and preserve map contrast. All weather colors remain data-driven. */
+:root{--v12-glass:rgba(2,23,36,.79)}
+.layer-information{box-shadow:0 6px 19px #02152241;background:var(--v12-glass)}
+.archive{background:rgba(2,23,35,.80)}
+.layer-menu{gap:7px}
+.layer-btn{border:1px solid rgba(176,231,242,.24)}
+.layer-btn.selected{box-shadow:0 0 0 1px #b0f7f888,0 0 18px #00d8e72a}
+.legend,.timeline{background:rgba(1,22,35,.85);box-shadow:0 6px 25px #0116246b}
+@media(max-width:700px){
+ .topbar{min-height:52px;padding:6px 11px;background:linear-gradient(180deg,rgba(2,21,34,.92),rgba(2,21,34,.32))}
+ .archive{top:56px;left:9px;right:auto;width:max-content;max-width:calc(100vw - 18px)}
+ .layer-information{top:95px;max-width:170px;padding:8px 10px}
+ .layer-information h1{font-size:15px}
+ .layer-menu{bottom:201px;gap:5px;padding:5px;background:rgba(0,24,36,.81)}
+ .layer-btn{height:44px;min-height:44px;font-size:9px}
+ .bottom-stack{bottom:max(6px,env(safe-area-inset-bottom));gap:5px}
+ .legend{padding:7px 11px 6px}
+ .timeline{min-height:112px;padding:9px 12px 7px}
+ .map-tools{bottom:269px}
+ .metadata{bottom:264px}
+ .attribution{bottom:247px;font-size:7px}
+ .point-popover{bottom:272px}
+}
+
+/* V13 image-backed satellite observation. The basemap stays readable where IR is warm/clear. */
+@media(max-width:700px){.layer-information{max-width:188px}.archive{letter-spacing:.005em}.brand-name{font-size:18px}.timeline-foot{font-size:9px}}
+.map-root .maplibregl-canvas{filter:saturate(1.09)}
+</style>
+<script src="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js"></script>
+
+
+</head>
+<body>
+<main class="weather-app" id="app" aria-label="WeatherNext map visual lab V13">
+  <div class="map-root" id="map" role="application" aria-label="Bản đồ tương tác Phú Quốc - yêu cầu Internet tải bản đồ địa lý"></div>
+  <div class="map-empty" id="map-empty" hidden><div class="map-empty-icon">◎</div><strong>Chưa tải được bản đồ địa lý</strong><span>Đang chờ nền vector OpenFreeMap. Không hiển thị đường bờ giả thay cho dữ liệu GIS.</span></div>
+  <canvas id="field" class="field-layer" aria-hidden="true"></canvas>
+  <canvas id="particles" class="particle-layer" aria-hidden="true"></canvas>
+  <div id="stations" class="station-layer"></div>
+  <div class="shade"></div>
+  <header class="topbar">
+    <div class="brand"><span class="brand-symbol" aria-hidden="true">≋</span><div class="brand-name">Weather<span>Next</span><small>PHÚ QUỐC WEATHER INTELLIGENCE</small></div></div>
+    <div class="top-center">BẢN ĐỒ THỜI TIẾT <span class="divider-dot">·</span> VISUAL LAB V14.1</div>
+    <button class="circle-control" id="locate" aria-label="Trở về toàn đảo Phú Quốc" title="Về Phú Quốc">⌖</button>
+  </header>
+  <div class="archive" role="status"><span class="archive-light"></span><strong>BẢN THỬ · DỮ LIỆU LƯU TRỮ 11/10/2026</strong><span class="archive-explain">Không phải thời tiết hiện tại</span></div>
+  <section class="layer-information" aria-live="polite"><div class="eyebrow" id="data-class">DỰ BÁO MÔ HÌNH</div><h1 id="active-title">Mưa dự báo</h1><p id="active-source">ECMWF · trường dự báo 0,5°</p></section>
+  <nav class="layer-menu" aria-label="Chọn lớp quan trắc và dự báo">
+    <button type="button" class="layer-btn selected" data-layer="cloud" aria-pressed="true"><span class="layer-ico" aria-hidden="true">☁</span><span class="layer-word">Mây</span></button>
+    <button type="button" class="layer-btn" data-layer="rain" aria-pressed="false"><span class="layer-ico" aria-hidden="true">☂</span><span class="layer-word">Mưa</span></button>
+    <button type="button" class="layer-btn" data-layer="wind" aria-pressed="false"><span class="layer-ico" aria-hidden="true">➶</span><span class="layer-word">Gió</span></button>
+    <button type="button" class="layer-btn" data-layer="wave" aria-pressed="false"><span class="layer-ico" aria-hidden="true">≋</span><span class="layer-word">Sóng</span></button>
+    <button type="button" class="layer-btn" data-layer="temp" aria-pressed="false"><span class="layer-ico" aria-hidden="true">☀</span><span class="layer-word">Nhiệt độ</span></button>
+  </nav>
+  <div class="map-tools" aria-label="Tùy chọn bản đồ"><button id="toggle-wind" class="tool-btn on" aria-pressed="true" aria-label="Bật/tắt vệt gió theo vector">➶</button><button id="toggle-stations" class="tool-btn on" aria-pressed="true" aria-label="Hiện/ẩn trạm quan trắc">⌖</button><button id="zoom-in" class="tool-btn" aria-label="Phóng to">+</button><button id="zoom-out" class="tool-btn" aria-label="Thu nhỏ">−</button></div>
+  <aside class="point-popover" id="point-panel" hidden><button id="point-close" aria-label="Đóng thông tin điểm" class="close">×</button><div id="point-class" class="eyebrow">MẪU LƯU TRỮ</div><h2 id="point-name">Vị trí</h2><div id="point-value" class="point-value">—</div><p id="point-time"></p><div class="point-note" id="point-note"></div></aside>
+  <div class="metadata" id="metadata"><span class="dot"></span><span id="geo-status">Đang kết nối bản đồ vector…</span></div>
+  <div class="bottom-stack">
+    <div class="legend"><div class="legend-head"><b id="legend-title">Mưa dự báo</b><small id="legend-source">ECMWF · dự báo</small></div><div class="gradient" id="gradient"></div><div class="legend-marks" id="legend-marks"></div></div>
+    <section class="timeline" aria-label="Thanh thời gian"><div class="timeline-heading"><div><div class="timeline-label" id="time-class">DỰ BÁO · UTC+7</div><strong id="time-current">—</strong></div><span id="frame-count" class="time-frame">Khung 1/7</span></div><div class="timeline-controls"><button class="play" id="play" aria-label="Phát lại các khung" aria-pressed="false">▶</button><div class="slider"><input id="scrub" type="range" min="0" max="6" value="2" step="1" aria-label="Mốc thời gian"><div class="times"><span id="time-start"></span><span id="time-mid"></span><span id="time-end"></span></div></div></div><div class="timeline-foot"><span id="time-footnote">Chỉ số từ bản lưu trữ · không phải dữ liệu trực tiếp</span><span id="current-layer-tag">0,5°</span></div></section>
+  </div>
+  <footer class="attribution">© OSM/OpenFreeMap · S2 cloudless 2016 © EOX/Copernicus · AHI VIS B02 + IR B13 © JMA/NOAA 11-10-2026 · dữ liệu lưu trữ</footer>
+</main>
+
+<script>// Archived study fixture extracted unchanged from V8, NOT live weather.
+window.__ENGINE_SNAPSHOT={"created":"2026-10-11T01:31:01.212894+00:00","run":"2026-10-10T18:00:00+00:00","grid":0.5,"coords":[[9.5,103.25],[9.5,103.75],[9.5,104.25],[9.5,104.75],[9.5,105.25],[10,103.25],[10,103.75],[10,104.25],[10,104.75],[10,105.25],[10.5,103.25],[10.5,103.75],[10.5,104.25],[10.5,104.75],[10.5,105.25],[11,103.25],[11,103.75],[11,104.25],[11,104.75],[11,105.25]],"frames":[["2026-10-11T09:00:00+00:00",[0,1,2,27,13,4,4,2,23,17,27,8,91,25,19,52,103,54,57,22],[-34,-23,-24,-13,-7,-36,-26,-20,-22,-3,-25,-29,-27,-6,-8,0,-4,7,10,-17],[9,7,5,8,6,24,19,15,16,16,18,4,-13,12,-2,-4,9,14,-2,10],[288,286,283,270,277,290,286,282,271,304,276,288,266,280,286,269,262,252,285,296],[4,3,2,1,0,4,3,2,2,0,4,0,1,0,0,0,0,0,0,0]],["2026-10-11T12:00:00+00:00",[0,0,1,0,1,0,3,2,17,12,8,5,11,4,2,8,8,6,29,13],[-29,-25,-21,-9,3,-32,-41,-32,-18,21,-35,-16,-19,8,-1,-4,-10,3,-12,-24],[12,10,4,-3,-3,13,-1,-18,-33,7,-4,-15,-30,-3,-23,-13,-8,-14,-36,-13],[292,290,284,279,263,290,282,281,271,258,295,267,270,263,269,253,252,249,249,246],[3,3,2,1,0,4,3,2,1,0,3,0,2,0,0,0,0,0,0,0]],["2026-10-11T15:00:00+00:00",[33,28,11,16,49,29,24,31,52,29,47,4,3,20,4,0,0,17,3,5],[-33,-33,-38,-43,0,-39,-41,-42,-27,2,-13,-9,-25,-9,0,5,-2,-8,-1,-7],[4,-7,-11,-10,-10,0,-2,-9,-40,-12,-1,-1,-38,2,-2,-6,-19,-12,0,-5],[276,273,279,271,246,280,278,272,255,248,269,267,263,252,257,247,252,239,255,258],[3,3,3,1,0,4,3,2,2,0,3,0,2,0,0,0,0,0,0,0]],["2026-10-11T18:00:00+00:00",[8,39,19,28,13,50,29,36,7,2,77,55,35,3,4,45,9,20,1,2],[-53,-49,-38,-29,-10,-43,-56,-44,-13,-3,-26,-11,-3,7,-5,-10,-22,7,13,4],[-12,-9,-28,-16,-13,-11,-24,-21,-9,2,-20,-14,-43,-8,-10,3,-15,-16,-8,-13],[274,275,273,260,244,271,269,264,271,247,272,246,251,250,249,233,241,235,252,253],[4,4,3,2,0,4,4,3,1,0,3,0,2,0,0,0,0,0,0]],["2026-10-11T21:00:00+00:00",[36,9,6,0,0,24,6,4,1,1,24,5,2,8,7,1,2,2,1,15],[-29,-45,-41,-32,-7,-46,-49,-44,-29,0,-5,3,-19,-6,-2,-1,-3,3,3,3],[-9,-18,-17,-18,-8,-15,-24,-29,-37,-10,-22,-14,-38,-17,-9,-14,-4,-12,-4,-6],[272,275,278,259,241,274,273,273,265,244,276,249,252,244,242,231,239,231,243,251],[4,4,4,2,0,5,4,4,2,0,3,0,2,0,0,0,0,0,0,0]],["2026-10-12T00:00:00+00:00",[67,60,38,0,0,59,23,10,0,0,54,0,0,0,0,0,0,0,0,0],[-7,-31,-12,-21,-5,-37,-37,-16,-12,-5,2,0,-9,3,-1,-11,-6,2,11,7],[11,-4,-9,-5,-11,2,-18,-30,-44,-19,0,-14,-29,-20,-17,-3,2,-14,-17,-18],[264,265,264,260,252,273,272,269,261,256,270,256,259,253,254,238,248,240,252,260],[4,4,3,2,0,4,4,4,3,0,2,0,2,0,0,0,0,0,0,0]],["2026-10-12T03:00:00+00:00",[9,23,24,38,2,9,9,8,5,2,0,0,1,3,2,2,1,4,3,3],[-36,-41,-41,-4,-18,-39,-47,-27,-14,-16,3,-16,-16,-8,-7,-18,-6,-9,-9,-2],[7,-5,-8,-6,-3,8,-1,-11,-4,-3,8,-2,-16,-18,-6,-6,-6,-16,-14,-13],[277,272,274,268,289,282,279,274,271,304,279,285,289,300,295,297,301,280,288,310],[4,4,3,2,0,4,3,3,2,0,2,0,2,0,0,0,0,0,0,0]]]};window.__COASTLINE={"source":"Offline simplified coastline - not certified for detailed geography","polygons":[[[104.65,10.13671],[104.64914,10.13541],[104.60497,10.14122],[104.61375,10.16084],[104.59372,10.1833],[104.59122,10.245],[104.55328,10.29042],[104.53378,10.27661],[104.53128,10.32164],[104.49042,10.37331],[104.52544,10.38164],[104.52417,10.42128],[104.49416,10.37959],[104.44583,10.36292],[104.45628,10.39917],[104.42706,10.4492],[104.39333,10.45039],[104.35416,10.49458],[104.2925,10.47706],[104.28794,10.52333],[104.25497,10.56875],[104.21917,10.56873],[104.2208,10.55625],[104.185,10.53792],[104.1475,10.56289],[104.0725,10.54542],[103.94411,10.5862],[103.90583,10.65125],[103.86539,10.655],[103.86435,10.7],[104.65,10.7],[104.65,10.13671]],[[103.86335,10.7],[103.85789,10.6475],[103.87039,10.62167],[103.8158,10.53625],[103.76083,10.52956],[103.71833,10.55791],[103.74206,10.5258],[103.73586,10.49706],[103.68747,10.50789],[103.6358,10.48539],[103.61417,10.50042],[103.61042,10.54833],[103.5925,10.55875],[103.56997,10.53708],[103.54211,10.59],[103.51328,10.60875],[103.50497,10.60039],[103.49461,10.62331],[103.54706,10.68584],[103.54727,10.7],[103.86335,10.7]],[[104.082042,10.370998],[104.009776,10.446112],[104.0171,10.439276],[104.004731,10.450995],[103.993175,10.4501],[103.983409,10.442206],[103.976248,10.433051],[103.972992,10.423326],[103.971446,10.411933],[103.96811,10.40233],[103.959239,10.398342],[103.955089,10.394965],[103.944347,10.379462],[103.942149,10.374742],[103.933767,10.36636],[103.914236,10.36522],[103.851329,10.374213],[103.846039,10.371283],[103.849457,10.360541],[103.857432,10.320868],[103.870291,10.308092],[103.908458,10.289049],[103.937185,10.266059],[103.957042,10.233791],[103.983653,10.158759],[103.997244,10.07453],[104.01059,10.030463],[104.030935,10.021552],[104.034841,10.01675],[104.05128,10.007961],[104.048025,10.025295],[104.0442,10.036078],[104.043956,10.048163],[104.05128,10.069322],[104.033458,10.096015],[104.046641,10.151068],[104.08546,10.248114],[104.08546,10.353949],[104.082042,10.370998]]],"extent":[103.42,9.7,104.65,10.7]};window.__SATELLITE="cXxoXJSmhIuTfm9ToI5gYHB5g2Vpjv___49lcUynYNqL0d_k__9oXl92jqnSnrGpp2J7j2hqfoNxTD9yjGplZXVlWKTO2ZaSoNz0-F1VW2aSpJKooeXc30lHr_-fi4RHQkGDXF5ic9PLztne37F4nrbVi1JVXYGalJjPyefrqq3q7e6RXEA7gYFlZZaa4t7h__D_g3ra39n_j4SNk5qRnLGe8v____Xr7P9cS1FBiP____Lbx___-P___8Ts3___c0R-dZrr__P_5e3_7v_ztKmPi5_______-6u____________iG0taoNs6v____Dq6930____iIqclJ-a______T___________9CamVidYzI___z8__z4_RscP___0ZIdln_____8f______WZf______3-BfP__________imv_____dkeMgf_____28__W_1H__f__gv__rXI________g1_L________P_________2fD7P_w7P____-A_______9_____-T0________0dj________vw3lRef_______0UoUlP____________0__P____________3_-_mdGFk8_______KCktLTuC________9_Dy8e____-5q____7n_sv__9Pb6______81LS0tMT5V_______l4uzp__-xiomrqv92Z6-w_1FB9vb______0stLTEuKkOH_______26Or0QJuRk5JUU1WFg3WQbGRg9P______UzwzLRoqLSCO_______j6Z95k5K2oX47__-DayZVZGj_____9OxXTD0vKjo5ME_z____9uvpbmf_e3N-dFP_8ew_jv___________1NbUkUsFR4cbfP___7_nfVshmdyWkVP_-3t7_H0_________6z3TVlZSCU_GBue__8uOhcNY0xYVnw8OUdlUV7_______________tHVFFJP1A_eYf__v8oH0v_U0______-FhIYP____9TVbv______0VLSUk7LTn_____blj3______-YmWBL_______B_1Nvb____1ZvSlBPS0EiGYF4bVdc8us0NFAyNzxQQP-w_6u7vMj_b2hfb_9RbW1WVVNNRj10_zo1Ti4qKiINM0U5OTk5ckNAQ0NtUP_IuUhI___IcV1aV1RLSyRTN3o_Ly8rKysrOigyMVpPTkJIR1hncP__-fHD58eJaXFyb2AlL_-pgnNLUEkiL0hISEg-YWZpZlRDQv_7wcjI7vL3urNxfoiEeVU3_1knen8kMCMsTTs6Tz5maWZmZVBBuMfGxNCS5-LC_3qEeoNiTj5QVjSEiZRWQzE6STw-ZmZmZWNgRUlVXef____l7P__f4VlhGlxQU1LRo5_mUVCRDxCPj5Uf21sZTs5MTlV____6-X___9Jkv9YUlhVWV1NSm2NmHNFVFRNVTokHiAUIDdBU0tgXVNcSkhMTUh1_5ZLO0VRVFJNYFaom15NODgyfiEgGi4wNTc3L1pOTkg4WU9OcISXkT1TU3JrS1pVfN6Wj0FASGZ9eXhuTS0iKjw5PXyLfVlWV1SH__9gWENcYplcWVfW5e9eVEF_cVZxc19MMiMrOzg0O3eHZ0w1NP__vVg1MWeD1MiG5eXu72RVhP-UWmFqSkdSMjlMQDU7TnqHNzU0__-xmHs0yti0b0tZkphNeWC1_____49YTjo6TVFJP0FPNzFFNTTt6_-qjpTG5JSRR05lbFZg______________9ULlFHPEY0U0VAQOvu8oKY7eTd5eDPqZ3_____tP__________7sExT0ZERidRWv__7OnjhZWIteDQ5vPv9_P________________y3oJNq0seHv__OTug6LFNcVofO6jg7cyzkpjz______________Di4uLG4v_o4rZHRtr_mYSPPBsogtxVVaekoaT_______________PwTWHn____TCQx0P_czsp6T0mP3GeesP__qKWY_39yeJT_______NANUuu__8kJESZ7X9Ff6BkeufooIL_______-teG1nUXz_______Lzefr__yQiI4W9tOK8m41ahpWVm____-nv_____42C__________9R-f__M0tNkHl36N-XlrPB7JKWlp-rqe9OT4WLyar_________9Y_7_1ksXU4mgpKXoKSf5ODMppisnOeO5XCPf3WO________7vhBVv__x___XiJz_43AkZeeu8CTi5___6Ssq-CgiJSYoZVO_v_5_07_________Ih1jgVRxY32e_5Garu7w6IZ6_6GMepSCPj1U9fn_tv______VVhEHBwcDxyc____5dng3-XS8u7_6ot54uZFVP__________6OplZTI2HBwcHJ-TgpWzvu7v____Kojy5eTj2VdM7f_ltlz7___lxGZmM1k-WV2Plh4nM1E0Sy4XL0csXHXJ4-7n18G75bXDRVr___9aXGMoYSgQZW81JAxCOD9CPyw_KD5PbN7k_-7_U-b__________y09PjIiIw9qPBYNGhkXVoa8Z7C3ubJx4P_l______9QouT_VFj_P0tNDggYFxY9DSwqMSZMZ1NOcG9rb3Xg5________0E2_0tLT0tLSzMjNTRdLx0vM0BAd4WQqVFIeoFdcHPi___l_-3_QCXAS0tLSkklInCC_0gXHi4vMj5XVFd5MTGAemZZSUvf7u______Ov9D_0s0OiMjeHyJdVVjPWM8Ly9IX1g0WIyUsFk-XcD_7P__VGm-_____z9NKSVDfpqDY2NjRDs2OEBqWDZYwdBsU1lOVv____1FVFRO8om7sE0tOW6TX0hVWlhVUUxfhn-cWVhNTURKSx4xHBovRUk3W2VRTltHRU5OMv-Yl2JPQlJOU2FfWKWLWUBNSl1xGxcZJDUzRiE5SUhMPEpUUVB1__9FWlhuZktNWlKVuJNGPDhYjX8pYVAwJiYzOzlLbmlOU15UR_-6rFtBUl97WVZMVtrqa0VCUHNWaUlUNislJjc2NjdagHRXRC4p5uVbc0tHY3vd2rvh5u3xS1i-nWBWPEE6IC87S0g0M0tngUs2M0Dr65p0ML_XwKBWeOnuk7ZYWP____-TQTojNjk9UT8_T2stODYyMv__jIVWn87lm0xQapJTTv______________bjs9SkFIOzIvPERY6_9mnenH3OG93eqgr7yY__-___________-LZTRIRiEiNkxJ___s5ZKUdI_a4f_p_-u9vP___6n__________7ezTk1mICAh_0ojIubTZVNjTE2c4OWj8Y-b_f-j____________699iVOq3___kSjY23_-EhootFGezy5Xpqp2ZmaP_____________7eg8Tf___0kgLzPitKql0mhElpBWdJf__5yTiqFvR1H________wTSguR7z_JCRGRO_VPzukmIbT4OaJ_6T___-M_01mSXz________19EU_Q_89Jk1LgbGf_6Sei4WXkJmf____6LT_____kf___________0R2_1o-T0mFQP__qa-qsJmWjZSRzOzzfx05e_-2___________x-P2bXFJSRHaK_-Tam6fh4rikkI6VopWDgld0cv________Duc0Ff___9_zctRnX_jdmWq5-4o4m5ov-m5MyxpYV-op-tnH_x__k8VP______W1UdHGBZa3FSlq2xpJ-mrv_ixr6Wi5NljoRFRPL5____5P____9fX0QdHR0dhf9-jf_Y3bje4-y2x-y7xuTeZz4-___________L5W5uQx0dHR2RmXdxhrXg6uTtlChhovTk4-BVUlP_vGa-bvz__8imaGgcLElZVod0DTN8aFBENThAOVNt29zi59jD4eb3tf_______8JuZ0hDH2RrTiwcOVdKV2E7VFc5UonT4uTu___o_________1FTRzk2ORAQXz4fLzk5FjeJvv-Jg49_vZH_5-L______0dH__9GRlE2SD8NEzkjOS84OTk5Q2FxYTthkHBwdv_m________Ri7_WUxSNDtRRCQ3aCwtJy05OUSAfJhxQ2GVknaFuO7_______9GKMdQUE8rKztBav9GMTBhOSo5YVZKZWE5UJamY2FVzf_p_____1A7_1NQUDEtKip0i3o9UWFJYT85OUhZPjlvsb9sYU9h5_____9G_1D_____ST4uKWSRk3U6OmE7OTk5UlY5ObPVpXFoYVWK___7_0tc_8hSU1NTQTY3jUxBTVlfS0tUa4GAUlJDMDBCPDZAPzJHNTVNPzVmSVFCTlFTTk2YWlJaXk9LUVRGaWmAVFJNTUZ1WR0dISEoLj83NzclSj5UW1hQTP96S1Bfd11VQld6mZtnMjUzQFMSEDQ2JiMoOjw4MVVWUV5fVFBJ_2lOVlJnhmpbV1ro3lJIP4JQSh8eRi0jJSZANzY2XH1YUEAxLk_sWVJEXFxxfmxj3N_hXll4j1JLS0I5KiYfLE1HNDVX\ncFZCOS5SipZaMTBH59vK3pnW7fFSYv____-dLiYjJyUuT087PVpNP007VIR6jjVZXILM4ktA7vGtm3Z0_____6mHfCISIhotP0NBSUFNUTNxU19DNbLA2uPni7PZuGVauP___6r_________Rj9ERzQhPS88MyUsW5OXOSFpvsro4enr67L_____vP________-AlWVLSB8jJkI7HiJKj1l_dYWAleDX7-2k9___n6D____________gzktZSLduREM6ODiwZHxMTCx1m9jq5umhmpia______________9v4bz__zEiMDY-QMVvoMFQTGqDX521_6iKhYl0Fx5RSnb______y5LSklUJyYnQkhHqMzh1paM0tfgo6L___-LoI8oc4r__________ypOLThZJyZGSkunlqP_9Ji1umWKof____-djv__________________nvopKkdNTH7__6OZwqydYZSLhp-zqIZGMz2V______________r6_5c9PD9Knf-WvaWinP-ei4ihkombrWdZZYL_____9___7UA3-v___1cfMVV1Rv-Wm2WTsYuL2qzB_7zfx2NQcpaRrrrg6Oy5N1P______zg1Vh0dXUyTnqT_i6CnpL3_v96LWUutj7-dksLD9P__________OzY7HSYGHYVHPP__z9Tt3uTeWVvs7N3V34SWRUf___________-1O2IRMB19fn51ZIGqwXJkTR4xMlnx5OPbttvm7ODi6v__Xv_kaFhiYTceW_9IMzMyP4SFLjU6MjExkt7a2tjb5uDe3uj___9X__9jYkhMVEj_cjMzMx0mgT9_hIFpSXBa3OHh3____-7_______9XWFlGPDwfQTwzMzMzMyZBW5lZWZBib4_C5-vc7P______SFL__1JTWEFBQhNbTisyLS4vMzRVeVpZYmlZsI_c7eb_6f_w_1JDSP9SOlJTOVBabzQrIygtLS1VfI1meWpsg5yHZHfi5P_y_____3I-_0c7MCtDS1VtPTVZHx4pLVU5RXkzM4GsbFtlccLk6u3______0r_QTksKTVKUkE5PzIfOTdLPDI1UDFbuuF_fmRZdV______________UUE0KkdLWkUxMUk4Ojw-NFExMFuYgbi7XFlZWf______RlZV_1pRUTc8QlZcOklYW1pDUVBpaUFNRzIwMFgqKDo3Rj85Uzk1R11hRktSU1NQUEJKVlx6PlJSXGlAQGdCPVFCUTkZGBgZLSwtUzc8NjhDRFhcVU5OgFlRWWFJTlVal6CYs0s9O09RDwsKMy4mKCxBOTIyRVpgX1hPTj2PUE9VYn1lYVdb7euyNkFPOjMZCQomJyUlMj45MzxvaEw9Mi84PolAMFZYbXNnYILe3GFVZIs0Mzc3OCwoIio-Sjg2P3ldOTY1P2qFWC8xN0Z_19vczOrzZ0z__4f__zw2Oy4pKkhaPj5KU1IzO0dNaG4yQpOu3dO6Zp3r7eWWYq7___-pPEdIPCItJSpDQUBSTFJCNGtlU0OZmabT3LKQ1eeVXa______________cyUlNEItJiw2TEchI0BMjoMnSXSk2Ovapr3t7f_______________093SUMpIy9ERCAfPTw-jydzkpqrt9y0n_Od____mKz_________hZO3X0ZWskVEODw-O2-VS3JnTn-g4OPmpJumnohJ____________Gme0t_9KSCozO0BFYGGvt2NaZ5CFnqj_i4x7hkwfH3RQ____Zv8lHERFSEoiJUJGQzi4zcfIiWbJvs2n_4___4eSKB0hiXSI______83HiFMTCYwS0tMU4yb8p-So5qTiZKQ____pomN________________OPXvOS5ETE9Q________o5GSlo6Qp6OLakUo9P___________4z_-fn9LjY_SVb__5qcjZX_mYuOk5Oej6ynWUw5l_-W_0_2__-BR0r__P8xLS1AUIH_nI9ci_-MhpK9r8D_uM-XQShijICfz9fp7VI4______8yQE5cI2Y7jpT__5WImJjM__--4H9XXaaioqqfdFFct________101NlcjDw-Jc0N7_2LEt7Wy0FZXqP__0tyWv6VDTf________9eNV9KXjU3UXk2JjZU3riCNTMwLy8oe_Pc3bjDyu7k2-Lh__yj_0VhZGRPVEr_aiEfKSN-ozQtMkUzL37T1tfawY_z4Nve_53_____a1xJUkY2g00lHx8fEYtH4LyAgH-Af2Pc5uXu___q7v_______1c0XTs4OSX_ZSAfHx8fJ1V0Zlh3d1-Buc3_39zv______9tSP9SQlVLPj5TZGBCJR4cIh8fR3FoXmd_cIC3x97k6Pv7____QD9BT08yPkVIX1U0JhcXIBsbMm6HYWd3hZC4gYFut-Li4f______Tjz_RCsrQkRbVyk4KCgNDBYuWXRwWTNIh5xcaZ-V4O7_________R_8-LydISlVXMDtPKA4pK2BDSUA0PIDBV4KUWX1__________1j___8qUCs5VEp4JycnLCwuTD5JNTQ5gWVZ041XSn________9PUH9QKVBRLDxRSEBZSFo3NzU5alk_QkQyT09OIzo7Q0NCPD1JPjFCX1dRXFZVUE1DT08wOjZPVVtlPT0-QzMzJi8eGBk4KywvMlIzMzQ8R0VbV1JQUVBaQEZjSlpbXKevil1IQk5KFg0MDDIsKi8zRToxMC5kXFdPSVErKktaSmxwWVtdwvL_ZTw7ZkFEFBcwKygmKjM-ODIrREdDMSsnUko2QjNYVFFJVVd7tptaOUOdQUFCKT0tIiInP0U5OEU4PTQpJShYYYAxM2JQTpbct7vL5F7o__mR_0IgPDIrKDBHVEBARywrLx4hGCEoNFlsY93cv5-j6eq4WGGTlP__US9UKyU2PTUtQj5DS04bFBcLGiYmPEJz0dee7eDY6ejk6In_______9YQj4eDCQ7Qy8hJhMUGSstLjVNPE-wl7nk1aOb5rfA____________GB4KIURrJ0U6NS4wPTY4O1QoRISdobTf66P_-v-i__________8kJSlYRnNEbDw8OztCOjMzbWN9imaFh9fk37erz7BFZEv_eP______MCElk9pBPDE1Nj5OQTmNWIFgWYeMmWWv____k2pWZCdDUYj___9JIRxCRDUaGzg_Qy0tTNKJnGJhjp6nwI-N_6meVksh_3h1____wrH_PUIVPh0fREpQVEdE1eDGTHWvmJaLnaT_oIyGiY7___________9HPxv_BiEjSVJSOjP_____tqGTh4WhnZKUm4l7RzX_________jIY9___5Iyg2Q0o6M_______moaCkpq8n7SdlpBDNkKFeYf___8eHH3z-flaKi4zSD46__-Xlf-ShImSldblkpS7kmEtM395e43S4jkrSkr___b_Njs-UG5IbZGFhv___6Gk6eeenJmgVo_yr113h9k_O-ZYT____2M8O0JaWhZuf00oaomlu9SbqVU8RYn__9LRrozYkj4vSv____9kQDs7TFdCT4ZzLCQqe3mWS1tAMTMyIf__3NTGxdvjb9nj4___90ViTWJTW2T_bCUdHiBbS31aXX1LW2Vr4MzM2um8wuXR1OT___9NOzo6SEVAY25IHR0dHSU8NJQ6SFVfeY2Q3Pnr_______x_____11JSjs8Pzo6TzwaHSAhHRyIhz9lf2pSoLfa1erk________R0xQWl1ERFNVVVhwHRcdKB8jICdqY2usrnZ5fbzW5uv____l__9SQUj_WTVEQGFQUCEfISEeHh5FeGRtZouLaWJ5c9nb5v____H___9_PlE5R0dLXFU4KCExIA4QHkZyb1NMYY1oYnKYx9X_6v_______1BH_ygpSE5XPj4kISEhICA1R04vNEKmkmKXYmJ8iv________8_Sj-mKCgsS0lRVCMkISEgSC9ISy8tU4ZjUJduaG2K________KDpQKCooLTA9PkJG\n";
+</script>
+<script>/* WeatherNext Map Visual V11 · ISOLATED · archived samples only · no backend calls.
+ * Geographic basemap is rendered by MapLibre GL / OpenFreeMap. There is no synthetic GIS fallback.
+ * Observed cloud-top temperature != precipitation radar. Forecast 0.5 degree != local radar.
+ */
+(()=>{'use strict';
+const $=id=>document.getElementById(id), SNAP=window.__ENGINE_SNAPSHOT, SAT=window.__SATELLITE;
+if(!SNAP||!SAT){document.body.insertAdjacentText('afterbegin','Thiếu fixture nghiên cứu');return;}
+const SAT_TIMES=['2026-10-11T03:30:20Z','2026-10-11T05:30:20Z','2026-10-11T05:40:20Z','2026-10-11T06:00:20Z','2026-10-11T06:10:20Z','2026-10-11T06:30:20Z'];
+const DATA={
+ cloud:{label:'Mây vệ tinh VIS/IR',kind:'QUAN TRẮC VỆ TINH',source:'Himawari-9 · VIS B02 + IR B13 (dữ liệu gốc)',legend:'IR B13 (°C) · Trắng: VIS B02 phản xạ cao',marks:['-70','-50','-30','0','20'],color:['#f57868','#ffd4aa','#f3eaf2','#a5cfeb','#315c7e'],note:'Ảnh ghép từ hai kênh thực: VIS B02 phản xạ và nhiệt độ bức xạ IR B13. Vùng sáng có thể gồm bề mặt đất, không khẳng định toàn bộ là mây. Không phải radar mưa.',scale:'VIS B02 ~1 km · IR B13 ~2 km · mẫu địa lý không tăng độ phân giải gốc',unit:'°C'},
+ rain:{label:'Mưa dự báo',kind:'DỰ BÁO MÔ HÌNH',source:'ECMWF · trường dự báo 0,5°',legend:'Mưa mô hình (mm / kỳ mẫu*)',marks:['0','1','2','5','10+'],color:['#1d8bd5','#13d3f4','#43f2aa','#fbe55d','#ef833c','#c6427e'],note:'*Chưa xác minh cửa sổ tích lũy mm của fixture. Không diễn giải là mm/giờ hay radar mưa.',scale:'Lưới mô hình 0,5°',unit:' mm*'},
+ wind:{label:'Gió dự báo',kind:'DỰ BÁO MÔ HÌNH',source:'ECMWF · vector U/V ở 10 m',legend:'Tốc độ gió (km/h)',marks:['0','10','20','30','40+'],color:['#1c749e','#1ac2dc','#6ee9bf','#e6dc75','#fa9576'],note:'Vệt chuyển động lấy hướng từ U/V mô hình; không phải quan trắc gió thực tế.',scale:'Lưới mô hình 0,5°',unit:' km/h'},
+ wave:{label:'Sóng biển',kind:'DỰ BÁO MÔ HÌNH',source:'Trường sóng fixture · chưa đối soát Copernicus',legend:'Độ cao sóng mô hình (m)',marks:['0','0,5','1','1,5','2+'],color:['#145a96','#20b1d5','#76dfb8','#f7d96c','#f28660'],note:'Trường sóng chỉ là bản mẫu lưu trữ; chưa xác minh thời điểm và nguồn marine riêng.',scale:'Fixture nghiên cứu',unit:' m'},
+ temp:{label:'Nhiệt độ dự báo',kind:'DỰ BÁO MÔ HÌNH',source:'ECMWF · nhiệt độ không khí mô hình',legend:'Nhiệt độ mô hình (°C)',marks:['20','24','28','32','36+'],color:['#368ad7','#57c7d5','#a5dfab','#f4d477','#e96865'],note:'Mô hình không có nghĩa là nhiệt độ đo tại điểm trạm.',scale:'Lưới mô hình 0,5°',unit:'°C'}
+};
+const STATIONS=[
+ {name:'Cửa Cạn',lat:10.292693,lon:103.914799,value:'1,0 mm',sample:'11/10/2026 · 08:32',note:'VRain · số tích lũy theo kỳ nguồn, không xác minh đang mưa.'},
+ {name:'An Thới',lat:10.018482,lon:104.0149,value:'4,8 mm',sample:'11/10/2026 · 07:57',note:'VRain · tích lũy kỳ nguồn, không phải mm/giờ.'},
+ {name:'Bãi Thơm',lat:10.411765,lon:104.031055,value:'0 mm',sample:'08/10/2026 · 20:28',note:'VRain · số liệu rất cũ, không khẳng định thời tiết hôm nay.',stale:true}
+];
+const state={layer:'cloud',index:5,playing:false,stationVisible:true,wind:false,ready:false,fail:false,point:null};
+let map=null, cloudGrids=[], windParticles=[], playLast=0, playTimer=0, repaint=0, animTick=0, w=0,h=0,dpr=1, lastAnim=0, styleReady=false, satelliteLoaded=false;
+const field=$('field'),wind=$('particles'),fieldCtx=field.getContext('2d',{alpha:true}),windCtx=wind.getContext('2d',{alpha:true});
+const rasterOff=document.createElement('canvas'),rasterCtx=rasterOff.getContext('2d',{alpha:true});
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));const mix=(a,b,t)=>a+(b-a)*t;
+const timestamps=()=>state.layer==='cloud'?SAT_TIMES:SNAP.frames.map(f=>f[0]);
+const fmt=(iso,opts={month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})=>new Intl.DateTimeFormat('vi-VN',{timeZone:'Asia/Ho_Chi_Minh',...opts}).format(new Date(iso));
+const timeClock=iso=>fmt(iso,{hour:'2-digit',minute:'2-digit'});
+function decodeCloud(){const b64=SAT.replace(/\s+/g,'').replace(/-/g,'+').replace(/_/g,'/');const bin=atob(b64),raw=Uint8Array.from(bin,x=>x.charCodeAt(0));if(raw.length!==6*1064)throw Error('Invalid archived Himawari grid length');
+ // No invented cloud microstructure. 3x3 bounded smoothing with measured-cell coverage.
+ for(let frame=0;frame<6;frame++){const value=new Float32Array(1064),support=new Float32Array(1064),K=[.25,.5,.25];
+  for(let r=0;r<28;r++)for(let c=0;c<38;c++){let sum=0,sw=0,all=0;for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){const rr=r+dr,cc=c+dc;if(rr<0||rr>=28||cc<0||cc>=38)continue;const k=K[dr+1]*K[dc+1],v=raw[frame*1064+rr*38+cc];all+=k;if(v!==255){sum+=k*(v/2-95);sw+=k;}}value[r*38+c]=sw?sum/sw:NaN;support[r*38+c]=all?sw/all:0;}
+  cloudGrids.push({value,support});}
+}
+const lookup=new Map(SNAP.coords.map(([a,b],i)=>[a+','+b,i]));
+function forecast(lat,lon,channel){if(lat<9.5||lat>11||lon<103.25||lon>105.25)return null;
+ const ly=clamp((lat-9.5)/.5,0,2.99999),lx=clamp((lon-103.25)/.5,0,3.99999),r=Math.floor(ly),c=Math.floor(lx),ty=ly-r,tx=lx-c;
+ const f=SNAP.frames[state.index];if(!f||!Array.isArray(f[channel]))return null;const arr=f[channel];const at=(i,j)=>{const k=lookup.get((9.5+i*.5)+','+(103.25+j*.5));return k===undefined||!Number.isFinite(arr[k])?null:arr[k]/10;};
+ const v=[at(r,c),at(r,c+1),at(r+1,c),at(r+1,c+1)];if(v.some(x=>x==null))return null;return mix(mix(v[0],v[1],tx),mix(v[2],v[3],tx),ty);
+}
+function cloudAt(lat,lon){const yy=(lat-9)/.075,xx=(lon-102.75)/.075;if(yy<0||yy>=28||xx<0||xx>=38)return null;
+ const grid=cloudGrids[state.index];if(!grid)return null;const r=Math.floor(yy),c=Math.floor(xx),dy=yy-r,dx=xx-c;let sum=0,ws=0;
+ for(const [rr,cc,k] of [[r,c,(1-dx)*(1-dy)],[r,c+1,dx*(1-dy)],[r+1,c,(1-dx)*dy],[r+1,c+1,dx*dy]]){if(rr<0||rr>=28||cc<0||cc>=38)continue;const i=rr*38+cc,cover=grid.support[i];if(Number.isFinite(grid.value[i])){sum+=grid.value[i]*cover*k;ws+=cover*k;}}
+ if(ws<.045)return null;const edge=clamp(Math.min((lat-9)/.13,(11-lat)/.13,(lon-102.75)/.13,(105.5-lon)/.13),0,1);return {value:sum/ws,confidence:Math.pow(ws,1.4)*edge};
+}
+function measure(lat,lon){switch(state.layer){case'cloud':return cloudAt(lat,lon)?.value??null;case'rain':return forecast(lat,lon,1);case'wind':{const u=forecast(lat,lon,2),v=forecast(lat,lon,3);return u==null||v==null?null:Math.hypot(u,v)*3.6;}case'wave':return forecast(lat,lon,5);case'temp':return forecast(lat,lon,4);}}
+function ramp(v,stops){if(v<=stops[0][0])return stops[0][1];for(let i=1;i<stops.length;i++){if(v<=stops[i][0]){const t=clamp((v-stops[i-1][0])/(stops[i][0]-stops[i-1][0]),0,1);return stops[i][1].map((k,j)=>Math.round(mix(k,stops[i-1][1][j],1-t)));}}return stops.at(-1)[1];}
+function rgba(v,confidence=1){switch(state.layer){
+ case 'cloud':{if(v>-20)return [190,223,239,0];const a=clamp((-v-20)/18,0,1)*confidence;return ramp(v,[[-90,[247,162,105,204*a]],[-72,[255,236,199,217*a]],[-55,[235,246,249,198*a]],[-35,[200,225,242,132*a]],[-20,[171,200,222,0]]]);}
+ case 'rain':{if(v<.35)return [0,0,0,0];return ramp(v,[[.35,[0,120,210,0]],[.65,[0,165,242,36]],[1,[35,211,237,76]],[2,[31,224,195,145]],[4,[139,231,99,199]],[6,[253,216,70,218]],[10,[255,132,48,235]],[18,[216,54,88,241]]]);}
+ case 'wind':return ramp(v,[[0,[5,99,153,32]],[8,[20,178,209,65]],[16,[43,214,184,97]],[25,[196,226,119,131]],[36,[246,158,80,168]],[50,[232,85,104,210]]]);
+ case 'wave':return ramp(v,[[0,[24,101,157,23]],[.3,[17,160,193,66]],[.7,[41,216,208,116]],[1.2,[102,225,158,144]],[2,[238,217,97,188]],[3,[236,113,81,213]]]);
+ default:return ramp(v,[[18,[36,128,218,70]],[24,[83,197,213,110]],[28,[145,220,166,132]],[32,[241,214,105,165]],[37,[227,87,87,203]]]);
+ }}
+function size(){const rect=$('app').getBoundingClientRect();w=Math.max(1,rect.width);h=Math.max(1,rect.height);dpr=Math.min(2,window.devicePixelRatio||1);for(const c of [field,wind]){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);c.style.width=w+'px';c.style.height=h+'px';}for(const ctx of [fieldCtx,windCtx])ctx.setTransform(dpr,0,0,dpr,0,0);if(map)map.resize();requestDraw();}
+function requestDraw(){if(repaint)return;repaint=requestAnimationFrame(()=>{repaint=0;drawField();renderStations();});}
+function drawField(){fieldCtx.clearRect(0,0,w,h);if(!map||!state.ready)return;if(state.layer==='cloud'&&ahiReady)return;const step=w<700?4.8:5.8,nx=Math.ceil(w/step),ny=Math.ceil(h/step);if(rasterOff.width!==nx||rasterOff.height!==ny){rasterOff.width=nx;rasterOff.height=ny;}const im=rasterCtx.createImageData(nx,ny);
+ // North-up, flat Mercator: screen x determines longitude and screen y determines latitude.
+ // Cache axis inverse projection to avoid tens of thousands of repeated calls per redraw.
+ const lons=Array.from({length:nx},(_,x)=>map.unproject([(x+.5)*step,0]).lng);
+ const lats=Array.from({length:ny},(_,y)=>map.unproject([0,(y+.5)*step]).lat);
+ // Sampling is geo-anchored in MapLibre's Mercator view. Zoom changes map footprint, never invents finer source cells.
+ for(let y=0;y<ny;y++)for(let x=0;x<nx;x++){const lat=lats[y],lon=lons[x];const cl=state.layer==='cloud'?cloudAt(lat,lon):null;const val=state.layer==='cloud'?cl?.value:measure(lat,lon);if(!Number.isFinite(val))continue;const p=rgba(val,cl?.confidence??1),i=(y*nx+x)*4;im.data[i]=p[0];im.data[i+1]=p[1];im.data[i+2]=p[2];im.data[i+3]=p[3];}
+ rasterCtx.putImageData(im,0,0);fieldCtx.imageSmoothingEnabled=true;fieldCtx.globalAlpha=state.layer==='rain'?.72:state.layer==='cloud'?.91:.69;fieldCtx.drawImage(rasterOff,0,0,w,h);fieldCtx.globalAlpha=1;}
+function renderStations(){const root=$('stations');root.replaceChildren();if(!map||!state.ready||!state.stationVisible)return;for(const st of STATIONS){const p=map.project([st.lon,st.lat]);if(p.x<0||p.y<0||p.x>w||p.y>h)continue;const b=document.createElement('button');b.type='button';b.className='station-pin'+(st.stale?' stale':'');b.style.left=p.x+'px';b.style.top=p.y+'px';b.dataset.label=st.name;b.title='VRain '+st.name+' - số liệu lưu trữ';b.setAttribute('aria-label','Xem trạm VRain '+st.name);b.onclick=()=>showPoint({station:st});root.append(b);}}
+function showPoint({station,lat,lon}){const panel=$('point-panel');if(station){$('point-class').textContent='TRẠM VRAIN · MẪU LƯU TRỮ'+(station.stale?' · HẾT HẠN':'');$('point-name').textContent=station.name;$('point-value').textContent=station.value;$('point-time').textContent='Mẫu: '+station.sample+' UTC+7';$('point-note').textContent=station.note;}
+ else{const v=measure(lat,lon),meta=DATA[state.layer];$('point-class').textContent=meta.kind;$('point-name').textContent=lat.toFixed(3)+'°N · '+lon.toFixed(3)+'°E';$('point-value').textContent=v==null?'Chưa có mẫu':v.toFixed(1)+meta.unit;$('point-time').textContent='Khung '+fmt(timestamps()[state.index])+' UTC+7';$('point-note').textContent=meta.note;}
+ panel.hidden=false;}
+function updateUI(){const meta=state.layer==='cloud'&&!ahiReady?{
+ ...DATA.cloud,
+ label:'Mây đỉnh lạnh · lưới dự phòng',
+ source:'Himawari cloud-top · lưới 0,075° · đang chờ ảnh VIS B02 + IR B13',
+ legend:'Nhiệt độ đỉnh mây (°C)',marks:['-10','-25','-45','-65','-90'],
+ color:['#aec9d6','#b7d3e5','#d8ebef','#fff1c2','#ffae6d'],
+ note:'Fallback chỉ dùng trường cloud-top đã tổng hợp 0,075°. Không phải ảnh vệ tinh VIS/IR gốc hay radar mưa.',scale:'Dự phòng · lưới 0,075°',unit:'°C'
+ }:DATA[state.layer],ts=timestamps();$('active-title').textContent=meta.label;$('data-class').textContent=meta.kind;$('active-source').textContent=meta.source;$('legend-title').textContent=meta.legend;$('legend-source').textContent=state.layer==='cloud'?(ahiReady?'Himawari-9 · VIS/IR':'Himawari · lưới dự phòng'):'Dự báo · mô hình';$('gradient').style.background='linear-gradient(90deg,'+meta.color.join(',')+')';$('legend-marks').replaceChildren(...meta.marks.map(t=>{const s=document.createElement('span');s.textContent=t;return s;}));$('time-class').textContent=(state.layer==='cloud'?'QUAN TRẮC VỆ TINH':'DỰ BÁO MÔ HÌNH')+' · UTC+7';$('time-current').textContent=fmt(ts[state.index]);$('time-start').textContent=timeClock(ts[0]);$('time-mid').textContent=timeClock(ts[Math.floor(ts.length/2)]);$('time-end').textContent=timeClock(ts.at(-1));$('scrub').max=ts.length-1;$('scrub').value=state.index;$('frame-count').textContent='Khung '+(state.index+1)+'/'+ts.length;$('time-footnote').textContent=state.layer==='cloud'?'Khung ảnh quan trắc không đều · không phát theo thời gian thực':'Snapshot chạy ECMWF 11/10 · dữ liệu lưu trữ';$('current-layer-tag').textContent=meta.scale;document.querySelectorAll('.layer-btn').forEach(b=>{const active=b.dataset.layer===state.layer;b.classList.toggle('selected',active);b.setAttribute('aria-pressed',String(active));});$('point-panel').hidden=true;updateAhi();requestDraw();}
+function setLayer(layer){if(!DATA[layer])return;state.layer=layer;state.index=layer==='cloud'?SAT_TIMES.length-1:2;state.playing=false;updatePlay();updateUI();windCtx.clearRect(0,0,w,h);windParticles=[];}
+function updatePlay(){$('play').textContent=state.playing?'Ⅱ':'▶';$('play').setAttribute('aria-pressed',String(state.playing));$('play').setAttribute('aria-label',state.playing?'Tạm dừng':'Phát lại các khung');playLast=0;}
+function setGeoStatus(text,mode){$('geo-status').textContent=text;const e=$('metadata');e.className='metadata '+(mode||'');}
+function offline(reason){state.ready=false;state.fail=true;$('map-empty').hidden=false;setGeoStatus(reason||'Chưa tải bản đồ vector','fail');fieldCtx.clearRect(0,0,w,h);windCtx.clearRect(0,0,w,h);renderStations();}
+function recolorBasemap(){// Every override is cosmetic on a verifiable external OSM vector style.
+ const layers=map.getStyle()?.layers||[];
+ for(const l of layers){const id=l.id.toLowerCase();try{
+  if(l.type==='background')map.setPaintProperty(l.id,'background-color','#1e4b43');
+  if(l.type==='fill'){if(/water|ocean|sea|lake/.test(id))map.setPaintProperty(l.id,'fill-color','#0a344d');else if(/park|wood|forest|natural|green|landcover|vegetation/.test(id))map.setPaintProperty(l.id,'fill-color','#275e43');else if(/building/.test(id))map.setPaintProperty(l.id,'fill-color','#526d61');else if(/land|residential|urban|landuse/.test(id))map.setPaintProperty(l.id,'fill-color','#335648');}
+  if(l.type==='line'&&/coast|waterway/.test(id))map.setPaintProperty(l.id,'line-color','#69bcb6');
+  if(l.type==='line'&&/road|transport|street/.test(id))map.setPaintProperty(l.id,'line-color','#6c9b8e');
+  if(l.type==='symbol'){map.setPaintProperty(l.id,'text-color',/water|ocean|sea/.test(id)?'#91c8db':'#effbed');map.setPaintProperty(l.id,'text-halo-color','#113c3b');map.setPaintProperty(l.id,'text-halo-width',1.25);}
+ }catch(_){/* unsupported layer paint property */}}
+}
+/* Historical georeferenced land imagery. This is NOT an observed weather image.
+   Sentinel-2 cloudless 2016 by EOX IT Services GmbH (modified Copernicus Sentinel 2016/17).
+   CC BY 4.0: https://s2maps.eu/#license; credit must remain visible. */
+function addRealSatelliteBasemap(){
+ if(map.getSource('eox-s2-2016'))return;
+ map.addSource('eox-s2-2016',{
+  type:'raster',tiles:['https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/GoogleMapsCompatible/{z}/{y}/{x}.jpg'],
+  tileSize:256,minzoom:0,maxzoom:13,
+  attribution:'Sentinel-2 cloudless - https://s2maps.eu by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2016 & 2017)'
+ });
+ const firstLabel=map.getStyle().layers.find(x=>x.type==='symbol');
+ map.addLayer({id:'eox-s2-imagery',type:'raster',source:'eox-s2-2016',paint:{
+  'raster-opacity':.94,'raster-saturation':.18,'raster-contrast':.10,
+  'raster-brightness-min':.10,'raster-brightness-max':.99,'raster-fade-duration':0
+ }},firstLabel?.id);
+ const water=map.getStyle().layers.find(l=>l.id==='water');
+ if(water && !map.getLayer('true-geo-coast'))map.addLayer({id:'true-geo-coast',type:'line',source:water.source,'source-layer':water['source-layer'],filter:water.filter||undefined,paint:{'line-color':'#6ef0de','line-width':['interpolate',['linear'],['zoom'],8,.35,10,1.0,13,2.0],'line-opacity':.58}},firstLabel?.id);
+ // Make external imagery optional. Vector geography and archived model data continue if it fails.
+ map.on('sourcedata',e=>{if(e.sourceId==='eox-s2-2016'&&e.isSourceLoaded)satelliteLoaded=true;});
+}
+// V14: DAYTIME REAL Himawari-9 VIS B02 (reflectance) + IR B13 (brightness-temperature) composite, not synthetic rain radar.
+const AHI_FRAMES=['0330','0530','0540','0600','0610','0630'];
+const AHI_EXTENT=[103.55,9.76,104.45,10.66];
+let ahiIndex=-1,ahiReady=false,ahiDecoded=false,ahiMapReady=false;
+const ahiURL=i=>'./ahi/AHI_COMPOSITE_VIS_IR_20261011_'+AHI_FRAMES[i]+'.png';
+// An image-source 'sourcedata' event alone can report loaded after a failed fetch.
+// Only advertise the real satellite frame after BOTH the raw PNG has decoded
+// and MapLibre has loaded the matching image source for this frame.
+function maybeConfirmAhi(){
+ if(!ahiDecoded||!ahiMapReady||ahiReady||ahiIndex!==state.index)return;
+ ahiReady=true;
+ try{map.setPaintProperty('ahi-b13-overlay','raster-opacity',.88)}catch(e){}
+ updateUI();requestDraw();
+}
+function probeAhiImage(i){
+ const image=new Image();
+ image.onload=()=>{if(ahiIndex!==i)return;ahiDecoded=true;maybeConfirmAhi();};
+ image.onerror=()=>{if(ahiIndex!==i)return;ahiDecoded=false;ahiReady=false;ahiMapReady=false;try{map.setPaintProperty('ahi-b13-overlay','raster-opacity',0)}catch(e){}updateUI();requestDraw();};
+ image.src=ahiURL(i);
+}
+function updateAhi(){
+ if(!map||!map.getLayer('ahi-b13-overlay'))return;
+ const visible=state.layer==='cloud';
+ map.setLayoutProperty('ahi-b13-overlay','visibility',visible?'visible':'none');
+ if(!visible)return;
+ if(ahiIndex!==state.index){
+  ahiIndex=state.index;ahiReady=false;ahiDecoded=false;ahiMapReady=false;
+  try{map.setPaintProperty('ahi-b13-overlay','raster-opacity',0);}catch(e){}
+  const v=ahiURL(ahiIndex);
+  probeAhiImage(ahiIndex);try{map.getSource('ahi-b13-20261011').updateImage({url:v})}catch(e){console.warn('AHI frame error',e)}
+ }
+ requestDraw();
+}
+function addRealAhi(){
+ if(map.getSource('ahi-b13-20261011'))return;
+ const [w,s,e,n]=AHI_EXTENT;
+ map.addSource('ahi-b13-20261011',{
+  type:'image',url:ahiURL(state.index),
+  coordinates:[[w,n],[e,n],[e,s],[w,s]]
+ });
+ const insertBefore=map.getLayer('true-geo-coast')?'true-geo-coast':map.getStyle().layers.find(x=>x.type==='symbol')?.id;
+ map.addLayer({id:'ahi-b13-overlay',type:'raster',source:'ahi-b13-20261011',paint:{
+  'raster-opacity':.88,'raster-resampling':'linear','raster-fade-duration':280
+ }},insertBefore);
+ ahiIndex=state.index;
+ probeAhiImage(ahiIndex);
+ map.on('sourcedata',e=>{if(e.sourceId==='ahi-b13-20261011'&&e.isSourceLoaded){ahiMapReady=true;maybeConfirmAhi();}});
+ updateAhi();
+}
+function fitIsland(animate=false){
+ if(!map)return;
+ const mobile=window.innerWidth<700;
+ const padding=mobile?{top:82,bottom:208,left:6,right:6}:{top:78,bottom:140,left:30,right:150};
+ map.fitBounds([[103.75,9.89],[104.19,10.455]],{padding,duration:animate?650:0,maxZoom:mobile?10.25:10.9});
+}
+function initMap(){if(!window.maplibregl){offline('MapLibre không tải · thử lại khi có Internet');return;}
+ try{map=new maplibregl.Map({container:'map',style:'https://tiles.openfreemap.org/styles/liberty',center:[104.0,10.20],zoom:9.4,minZoom:8,maxZoom:14,renderWorldCopies:false,attributionControl:false,fadeDuration:0,bearing:0,pitch:0,dragRotate:false,pitchWithRotate:false});
+  map.touchZoomRotate.disableRotation();
+  map.on('load',()=>{styleReady=true;recolorBasemap();addRealSatelliteBasemap();addRealAhi();fitIsland(false);requestDraw();});
+  map.on('idle',()=>{if(!state.ready&&styleReady&&(map.areTilesLoaded()||map.isSourceLoaded('openmaptiles'))){state.ready=true;state.fail=false;$('map-empty').hidden=true;setGeoStatus('Bản đồ OSM · vector đã render','ready');requestDraw();} });
+  map.on('move',requestDraw);map.on('zoom',requestDraw);map.on('click',e=>showPoint({lat:e.lngLat.lat,lon:e.lngLat.lng}));
+  map.on('error',e=>{if(e.sourceId==='ahi-b13-20261011'&&state.layer==='cloud'){ahiReady=false;try{map.setPaintProperty('ahi-b13-overlay','raster-opacity',0)}catch(x){}updateUI();}if(!state.ready){setGeoStatus('Lỗi tile/style · chưa xác minh nền','fail');}});
+  setTimeout(()=>{if(!state.ready)offline('MapLibre chưa xác nhận được nền vector');},22000);
+ }catch(e){offline('Không khởi tạo được WebGL/MapLibre');}
+}
+function resetParticle(){if(!map||!state.ready)return null;const p=map.unproject([Math.random()*w,Math.random()*h]);return {lat:p.lat,lon:p.lng,life:Math.random()*130};}
+function updateParticles(dt){if(!map||!state.ready||!state.wind||!['wind','rain'].includes(state.layer)||document.hidden||matchMedia('(prefers-reduced-motion:reduce)').matches){windCtx.clearRect(0,0,w,h);return;}windCtx.save();windCtx.globalCompositeOperation='destination-in';windCtx.fillStyle='rgba(0,0,0,.91)';windCtx.fillRect(0,0,w,h);windCtx.restore();const limit=w<700?140:320;if(windParticles.length!==limit)windParticles=Array.from({length:limit},resetParticle).filter(Boolean);
+ windCtx.strokeStyle=state.layer==='rain'?'rgba(202,255,255,.56)':'rgba(196,251,255,.85)';windCtx.lineWidth=w<700?.85:1.05;
+ for(let i=0;i<windParticles.length;i++){let p=windParticles[i],u=forecast(p.lat,p.lon,2),v=forecast(p.lat,p.lon,3);if(u==null||v==null||p.life>150){windParticles[i]=resetParticle();continue;}const a=map.project([p.lon,p.lat]);if(a.x<-5||a.x>w+5||a.y<-5||a.y>h+5){windParticles[i]=resetParticle();continue;}
+  // Geographic evolution from eastward/northward U/V; project both endpoints after map pan/zoom.
+  const secs=dt*2600,nextLat=p.lat+(v*secs)/111320,nextLon=p.lon+(u*secs)/(111320*Math.cos(p.lat*Math.PI/180));const b=map.project([nextLon,nextLat]);if(Math.hypot(b.x-a.x,b.y-a.y)<55){windCtx.beginPath();windCtx.moveTo(a.x,a.y);windCtx.lineTo(b.x,b.y);windCtx.stroke();}p.lat=nextLat;p.lon=nextLon;p.life++;
+ }}
+function framePlaybackMs(){
+ if(state.layer!=='cloud')return 1500;
+ const seq=SAT_TIMES,i=state.index;
+ if(i===seq.length-1)return 1900;
+ const delta=(Date.parse(seq[i+1])-Date.parse(seq[i]))/60000;
+ return clamp(750+delta*24,900,3600);
+}
+function loop(ts){const dt=Math.min(.04,(ts-lastAnim)/1000||.016);lastAnim=ts;if(state.playing){if(!playLast)playLast=ts;if(ts-playLast>framePlaybackMs()){state.index=(state.index+1)%timestamps().length;playLast=ts;updateUI();windParticles=[];}}
+ updateParticles(dt);animTick=requestAnimationFrame(loop);}
+function events(){document.querySelectorAll('.layer-btn').forEach(b=>b.addEventListener('click',()=>setLayer(b.dataset.layer)));
+ $('scrub').addEventListener('input',e=>{state.index=+e.target.value;state.playing=false;updatePlay();updateUI();windParticles=[];});
+ $('play').onclick=()=>{state.playing=!state.playing;updatePlay();};
+ $('point-close').onclick=()=>$('point-panel').hidden=true;
+ $('zoom-in').onclick=()=>map?.zoomIn();$('zoom-out').onclick=()=>map?.zoomOut();
+ $('locate').onclick=()=>fitIsland(true);
+ $('toggle-stations').onclick=()=>{state.stationVisible=!state.stationVisible;$('toggle-stations').classList.toggle('on',state.stationVisible);$('toggle-stations').setAttribute('aria-pressed',String(state.stationVisible));renderStations();};
+ $('toggle-wind').onclick=()=>{state.wind=!state.wind;$('toggle-wind').classList.toggle('on',state.wind);$('toggle-wind').setAttribute('aria-pressed',String(state.wind));windParticles=[];windCtx.clearRect(0,0,w,h);};
+ window.addEventListener('resize',size);window.visualViewport?.addEventListener('resize',size);}
+try{decodeCloud();events();size();updateUI();initMap();requestAnimationFrame(loop);}catch(e){offline('Lỗi đọc fixture mẫu');console.error(e);}
+window.__V14_QA__={state,DATA,STATIONS,get map(){return map;},measure,cloudAt,forecast,setLayer,get tilesLoaded(){return state.ready&&map?.areTilesLoaded();},get satelliteLoaded(){return satelliteLoaded;},get ahiReady(){return ahiReady;},get ahiIndex(){return ahiIndex;},get weatherMode(){return state.layer==='cloud'?'OBSERVED_REMOTE':'MODEL_FORECAST';},fitIsland,framePlaybackMs};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+{
+  "version": "V14",
+  "date": "2026-10-12",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "status": "VISUAL_REVIEW_CANDIDATE__HOLD",
+  "production_deployed": false,
+  "engine_handoff_approved": false,
+  "repo": "kenzuko/Jotrip-Weather",
+  "branch": "feat/weathernext-map-v14-vis-ir-lab-20261012",
+  "geography": {
+    "provider": "MapLibre + OpenFreeMap / OSM vector",
+    "source": "real vector tiles",
+    "historic_imagery": "EOX Sentinel-2 cloudless 2016/2017, not current weather"
+  },
+  "satellite": {
+    "platform": "Himawari-9 AHI via JMA / NOAA Open Data",
+    "day": "2026-10-11",
+    "frames_utc": [
+      "03:30",
+      "05:30",
+      "05:40",
+      "06:00",
+      "06:10",
+      "06:30"
+    ],
+    "bands": [
+      "B02 VIS reflectance 0.51um, nominal 1km",
+      "B13 IR brightness temperature 10.4um, nominal 2km"
+    ],
+    "projection_bbox_wgs84": [
+      103.55,
+      9.76,
+      104.45,
+      10.66
+    ],
+    "raster_pixels": [
+      640,
+      640
+    ],
+    "resampling_does_not_change_sensor_resolution": true,
+    "color_composite_is_not_natural_true_color": true,
+    "cloud_classification_not_verified": true
+  },
+  "layers": {
+    "cloud": "Observed remote VIS/IR archived imagery, actual PNGs",
+    "rain": "ECMWF historical forecast 0.5 degree; mm per sample window unverified",
+    "wind": "ECMWF historical model U/V",
+    "wave": "sample archival fixture, source unverified",
+    "temperature": "ECMWF historical forecast",
+    "stations": "archived VRain sample, freshness mixed"
+  },
+  "qa": {
+    "windows_headless_chromium_online": {
+      "map_vector": true,
+      "eox_tiles": true,
+      "six_real_satellite_composites": true,
+      "mobile_390x844": true,
+      "mobile_360x780": true,
+      "desktop_1440x900": true,
+      "all_five_layers": true,
+      "selected_timeline_frames": true,
+      "map_pan": true,
+      "zoom_in": true,
+      "station_popup": true,
+      "javascript_exceptions": 0
+    },
+    "missing_observation_frame": {
+      "procedure": "Copy independent lab with 06:30 UTC composite deliberately absent; reload at new local origin",
+      "base_map_remains_loaded": true,
+      "ahi_ready": false,
+      "source_label_explicitly_fallback_grid": true,
+      "javascript_exceptions": 0
+    },
+    "safari_physical_iphone": "NOT_TESTED",
+    "slow_network_conditions": "NOT_FULLY_TESTED",
+    "production_api_integration": "NOT_REQUESTED"
+  },
+  "blockers": [
+    "User visual approval",
+    "Physical iPhone Safari real-device verification",
+    "Future Engine data contract / marine provenance checks"
+  ],
+  "safety": [
+    "No production deploy",
+    "No merge to main",
+    "No Core V1.2 modifications",
+    "No CMS, DB, auth, schedulers, ingest, APIs or Cloudflare runtime changed"
+  ]
+}

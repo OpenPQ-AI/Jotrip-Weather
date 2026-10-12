@@ -1,0 +1,84 @@
+{
+  "version": "V15",
+  "date": "2026-10-12",
+  "state": "FRONTEND_VISUAL_REVIEW_HOLD",
+  "base": "V14",
+  "scope": "isolated frontend only",
+  "cloud_unchanged": true,
+  "production_untouched": true,
+  "engine_untouched": true,
+  "layers": {
+    "rain": {
+      "source": "archived ECMWF sample fixture",
+      "resolution_deg": 0.5,
+      "unit": "mm per unverified sample accumulation window",
+      "method": "bilinear color field, computed contour lines, sampled value badges",
+      "claims_not_allowed": [
+        "live radar",
+        "hourly intensity",
+        "subgrid echo precision"
+      ]
+    },
+    "wind": {
+      "source": "archived ECMWF model U/V",
+      "resolution_deg": 0.5,
+      "unit": "km/h",
+      "method": "projected U/V arrows, animated particles and speed labels",
+      "claim": "model wind, not measured wind"
+    },
+    "wave": {
+      "source": "read-only snapshot of repo data/weather-runtime/marine.json",
+      "dataset": "cmems_mod_glo_wav_anfc_0.083deg_PT3H-i",
+      "sampled_time_utc": "2026-10-11T06:00:00Z",
+      "cell_count_region": 154,
+      "unit": "significant wave height Hs in meters",
+      "method": "0.0833-degree native grid, display interpolation, OSM sea polygon clip, disabled single-frame timeline",
+      "wave_direction_convention": "unverified; no directional animation"
+    },
+    "temp": {
+      "source": "archived ECMWF sample fixture",
+      "resolution_deg": 0.5,
+      "unit": "Celsius",
+      "method": "gradient, computed contours, numeric model badges"
+    },
+    "cloud": {
+      "source": "authentic Himawari-9 AHI B02+B13 archive",
+      "unchanged_from": "V14",
+      "frames": 6
+    }
+  },
+  "qa": {
+    "system": "PHUQUOCLUX Windows headless Chromium, browser with Internet",
+    "viewports": [
+      "390×844",
+      "1440×900"
+    ],
+    "baseline_layers_rendered": 5,
+    "no_js_exceptions": true,
+    "no_network_failures": true,
+    "wave_land_alpha": 0,
+    "wave_sea_alpha": 197,
+    "marine_present": true,
+    "marine_missing_fallback": {
+      "marineReady": false,
+      "wave_value": null,
+      "source_label": "Chưa tải được snapshot Copernicus",
+      "no_js_exceptions": true
+    },
+    "actual_iphone_safari": "not yet tested",
+    "low_bandwidth": "not fully tested",
+    "production": "not deployed",
+    "visual_user_approval": "pending"
+  },
+  "safety": {
+    "no_deploy": true,
+    "no_merge": true,
+    "no_backend": true,
+    "no_engine": true,
+    "no_cms": true,
+    "no_auth": true,
+    "no_db": true,
+    "no_core_v12": true,
+    "no_cloudflare": true
+  }
+}
